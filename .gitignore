@@ -12,5 +12,5 @@ result
 weights/
 scripts/
 demos/
-perpareDataViLT/
-*.jpg
+prepareDataViLT/
+vilt-b32-finetuned-vqa/
