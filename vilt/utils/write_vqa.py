@@ -151,6 +151,11 @@ def make_arrow(root, dataset_root):
             if int(path.split("/")[-1].split("_")[-1][:-4]) in annot
         ]
 
+        # "train": "train2014"
+        # 82783（图片数量） 82774 82774
+        # "val": "val2014"
+        # "test": "test2015"
+        # "test-dev": "test2015"
         if len(paths) == len(annot_paths):
             print("all images have caption annotations")
         else:

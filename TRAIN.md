@@ -1,6 +1,7 @@
 # Train New Models
 
 ## Pretraining
+
 ```bash
 export MASTER_ADDR=$DIST_0_IP
 export MASTER_PORT=$DIST_0_PORT
@@ -12,6 +13,7 @@ python run.py with data_root=/data2/dsets/dataset num_gpus=8 num_nodes=1 task_ml
 ```
 
 ## Finetune on VQAv2
+
 ```bash
 export MASTER_ADDR=$DIST_0_IP
 export MASTER_PORT=$DIST_0_PORT
@@ -20,9 +22,14 @@ python run.py with data_root=<ARROW_ROOT> num_gpus=<NUM_GPUS> num_nodes=<NUM_NOD
 
 ex)
 python run.py with data_root=/data2/dsets/dataset num_gpus=8 num_nodes=1 task_finetune_vqa_randaug per_gpu_batchsize=64 load_path="weights/vilt_200k_mlm_itm.ckpt"
+
 ```
 
+python run.py with data_root=./arrows num_gpus=1 num_nodes=1 task_finetune_vqa_randaug per_gpu_batchsize=32 load_path="vilt_vqa.ckpt"
+
+
 ## Finetune on NLVR2
+
 ```bash
 export MASTER_ADDR=$DIST_0_IP
 export MASTER_PORT=$DIST_0_PORT
@@ -34,6 +41,7 @@ python run.py with data_root=/data2/dsets/dataset num_gpus=8 num_nodes=1 task_fi
 ```
 
 ## Finetune on COCO IR/TR
+
 ```bash
 export MASTER_ADDR=$DIST_0_IP
 export MASTER_PORT=$DIST_0_PORT
@@ -45,6 +53,7 @@ python run.py with data_root=/data2/dsets/dataset num_gpus=8 num_nodes=1 task_fi
 ```
 
 ## Finetune on F30K IR/TR
+
 ```bash
 export MASTER_ADDR=$DIST_0_IP
 export MASTER_PORT=$DIST_0_PORT
