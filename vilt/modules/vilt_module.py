@@ -145,6 +145,7 @@ class ViLTransformerSS(pl.LightningModule):
                 None,
             )
 
+        # (model type + position + EEG/facial) embedding
         text_embeds, image_embeds = (
             text_embeds + self.token_type_embeddings(torch.zeros_like(text_masks)),
             image_embeds
@@ -152,15 +153,17 @@ class ViLTransformerSS(pl.LightningModule):
                 torch.full_like(image_masks, image_token_type_idx)
             ),
         )
-
-        co_embeds = torch.cat([text_embeds, image_embeds], dim=1)
-        co_masks = torch.cat([text_masks, image_masks], dim=1)
+        # 将处理后的文本嵌入和图像嵌入拼接在一起
+        co_embeds = torch.cat([text_embeds, image_embeds], dim=1)  # 沿着第二个维度进行拼接
+        # 将文本和图像的 mask 拼接在一起
+        co_masks = torch.cat([text_masks, image_masks], dim=1)  # 沿着第二个维度进行拼接
 
         x = co_embeds
-
+        # 通过 Transformer block进行特征提取
         for i, blk in enumerate(self.transformer.blocks):
-            x, _attn = blk(x, mask=co_masks)
+            x, _attn = blk(x, mask=co_masks)  # blk 是 Transformer 的一层，_attn 是注意力权重
 
+        # 对 Transformer 的输出进行归一化处理
         x = self.transformer.norm(x)
         text_feats, image_feats = (
             x[:, : text_embeds.shape[1]],
